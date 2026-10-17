@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STROM SMP - Official Server Web</title>
+    <style>
+        /* STORM & LIGHTNING HIGH-ENERGY VISUAL THEME */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #060a12; /* Deep tempest dark ocean background */
+            background-image: linear-gradient(135deg, #040810 0%, #0a1628 100%);
+            color: #ffffff;
+        }
+
+        /* TOP NAVIGATION BAR */
+        nav {
+            background-color: #03060c;
+            border-bottom: 2px solid #00d2ff33; 
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;a
+            box-shadow: 0 4px 20px rgba(0, 210, 255, 0.1);
+        }
+
+        .nav-logo {
+            font-weight: 900;
+            color: #00d2ff; /* Neon Electric Cyan */
+            letter-spacing: 2px;
+            font-size: 20px;
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.6);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #7085a0;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #00d2ff;
+            text-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
+        }
+
+        /* TEMPEST HERO CONTAINER */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 40px 20px;
+        }
+
+        .main-title {
+            font-size: 54px;
+            font-weight: 900;
+            color: #ffffff;
+            margin: 0 0 10px 0;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(0, 210, 255, 0.6);
+        }
+
+        .main-title span {
+            color: #00d2ff;
+        }
+
+        .subtitle {
+            color: #3b82f6; /* Electric Blue */
+            font-size: 15px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            font-weight: 800;
+            margin-bottom: 25px;
+        }
+
+        /* DATA DISPLAY CONTENT */
+        .container {
+            max-width: 900px;
+            margin: 20px auto 60px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            color: #ffffff;
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 800;
+            margin-bottom: 20px;
+            border-left: 4px solid #00d2ff;
+            padding-left: 12px;
+            text-align: left;
+        }
+
+        /* CONNECTION IP BLOCKS */
+        .connection-row {
+            background-color: #09101d;
+            border: 1px solid #1e293b;
+            border-radius: 6px;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            transition: border 0.3s ease;
+        }
+
+        .connection-row:hover {
+            border-color: #00d2ff55;
+        }
+
+        .connection-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .platform-tag {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+            min-width: 75px;
+            text-align: center;
+        }
+
+        .java-tag {
+            background-color: #1e3a8a;
+            color: #93c5fd;
+            border: 1px solid #2563eb;
+        }
+
+        .bedrock-tag {
+            background-color: #065f46;
+            color: #34d399;
+            border: 1px solid #059669;
+        }
+
+        .ip-address {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 17px;
+            color: #f1f5f9;
+            font-weight: bold;
+        }
+
+        .copy-action {
+            color: #00d2ff;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: color 0.2s;
+        }
+
+        .copy-action:hover {
+            color: #ffffff;
+            text-shadow: 0 0 8px #00d2ff;
+        }
+
+        .footer-note {
+            color: #4b5563;
+            font-size: 12px;
+            margin-top: 8px;
+            margin-bottom: 50px;
+            line-height: 1.4;
+            text-align: left;
+        }
+
+        /* PERMANENT VISIBLE PACK DISPLAY BOX */
+        .shop-box {
+            background-color: #08101c;
+            border: 2px solid #1d4ed8;
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: left;
+        }
+
+        .shop-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .shop-header h3 {
+            margin: 0;
+            font-size: 22px;
+            color: #00d2ff;
+        }
+
+        .price-badge {
+            font-weight: 900; 
+            color: #34d399; 
+            font-size: 24px;
+            text-shadow: 0 0 10px rgba(52, 211, 153, 0.2);
+        }
+
+        /* INCLUDED LOOT DETAILS GRID */
+        .loot-title {
+            color: #ffaa00;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .loot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 10px;
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .loot-item {
+            background-color: #111a2e;
+            border: 1px solid #1e293b;
+            padding: 10px 14px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .loot-item span {
+            color: #00d2ff;
+        }
+
+        /* DISCORD COMPONENT STYLING */
+        .discord-help-box {
+            background-color: #040810;
+            border: 1px dashed #5865F2;
+            border-radius: 6px;
+            padding: 20px;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .discord-btn {
+            display: inline-block;
+            background-color: #5865F2; /* Discord Branding Color */
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(88, 101, 242, 0.3);
+            transition: background-color 0.2s;
+        }
+
+        .discord-btn:hover {
+            background-color: #4752C4;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP NAVIGATION BAR -->
+    <nav>
+        <div class="nav-logo">STROM SMP</div>
+        <div class="nav-links">
+            <a href="#" class="active">Home</a>
+            <a href="#">Shop</a>
+            <a href="#">Updates</a>
+            <a href="#">Events</a>
+        </div>
+    </nav>
+
+    <!-- SERVER HERO HEADER -->
+    <div class="hero">
+        <h1 class="main-title">STROM <span>MC</span></h1>
+        <div class="subtitle">Survival Multiplayer · Java & Bedrock</div>
+    </div>
+
+    <!-- CONNECTION SYSTEM INTERFACE -->
+    <div class="container">
+        <div class="section-title">Join The Server</div>
+        
+        <!-- JAVA IP BLOCK -->
+        <div class="connection-row">
+            <div class="connection-info">
+                <span class="platform-tag java-tag">Java IP</span>
+                <span class="ip-address" id="javaIp">46.232.234.84:25609</span>
+            </div>
+            <button class="copy-action" onclick="copyIp('javaIp')">Copy IP</button>
+        </div>
+
+        <!-- BEDROCK IP BLOCK -->
+        <div class="connection-row">
+            <div class="connection-info">
+                <span class="platform-tag bedrock-tag">Bedrock IP</span>
+                <span class="ip-address" id="bedrockIp">46.232.234.84</span>
+            </div>
+            <div class="ip-address" style="color: #64748b; font-size: 15px;">Port: <span id="bedrockPort" style="color: #34d399;">25609</span></div>
+            <button class="copy-action" onclick="copyIp('bedrockIp')">Copy IP</button>
+        </div>
+        
+        <div class="footer-note">Bedrock Mobile/Console players: Input the dedicated Bedrock IP address along with port <b>25609</b> under your server profile settings to connect.</div>
+
+        <!-- SHOP CORE LAYOUT -->
+        <div class="section-title" style="margin-top: 40px;">🛒 Official Server Shop Store</div>
+        
+
+<!-- UPDATED NETHERITE PLAN CARD ENTRY -->
+<div class="shop-box netherite-card" style="
+    background-color: #08101c;
+    border: 2px solid #ef444433;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+">
+    <div>
+        <div class="shop-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 15px; margin-bottom: 20px;">
+            <h3 style="margin: 0; font-size: 20px; color: #f87171;">🔥 NETHERITE PLAN VAULT</h3>
+            <div class="price-badge" style="font-weight: 900; color: #34d399; font-size: 24px; text-shadow: 0 0 10px rgba(52, 211, 153, 0.2);">99 ₹</div>
+        </div>
+
+        <div class="loot-title" style="color: #ffaa00; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; font-weight: bold;">🎁 Package Includes:</div>
+        <div class="loot-list-items" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 25px;">
+            <div class="loot-item"><span>⚡</span> All Maxed Netherite Armor & Tools</div>
+            <div class="loot-item"><span>⚡</span> Maxed Mace</div>
+            <div class="loot-item"><span>⚡</span> Elytra</div>
+            <div class="loot-item"><span>⚡</span> 5 Shulker</div>
+            <div class="loot-item"><span>⚡</span> 2 Stack Steak</div>
+            <div class="loot-item"><span>⚡</span> 3 Breeze Spawners</div>
+            <div class="loot-item"><span>⚡</span> 3 Iron Golem Spawners</div>
+            <div class="loot-item"><span>⚡</span> 3 Skeleton Spawners</div>
+            <div class="loot-item"><span>⚡</span> Netherite Rank</div>
+            <div class="loot-item"><span>⚡</span> 10 Netherite Ingot</div>
+            <div class="loot-item"><span>⚡</span> 1 Stack Diamond</div>
+            <div class="loot-item"><span>⚡</span> 50k Money</div>
+            <div class="loot-item"><span>⚡</span> 1 Bamboo Farm</div>
+            <div class="loot-item"><span>⚡</span> 5 Speical Key </div>
+            <div class="loot-item"><span>⚡</span> 8 Gold Key</div>
+            <div class="loot-item"><span>⚡</span> 10 Normal Key</div>
+
+        </div>
+    </div>
+
+    <button class="purchase-action-btn" style="
+        background-color: #22c55e !important;
+        color: #ffffff !important;
+        border: none !important;
+        padding: 12px 24px !important;
+        border-radius: 6px !important;
+        font-weight: bold !important;
+        cursor: pointer !important;
+        font-size: 15px !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        margin-top: auto !important;
+        margin-right: auto !important;
+        box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4) !important;
+        width: auto !important;
+    " onclick="window.open('https://discord.gg/Qmj8cBGXFA', '_blank')">
+        🛒 Purchase Plan
+    </button>
+</div>
+
+
+    <!-- JAVASCRIPT CONTROL MECHANICS -->
+    <script>
+        function copyIp(elementId) {
+            const ipText = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(ipText).then(() => {
+                alert("STROM SMP Connection Data Saved: " + ipText);
+            }).catch(err => {
+                console.error("Failed executing automated text clipboard dispatch: ", err);
+            });
+        }
+    </script>
+
+</body>
+</html>
+<!-- NEW DIAMOND PLAN CARD ENTRY -->
+<div class="shop-box diamond-card" style="
+    background-color: #08101c;
+    border: 2px solid #00d2ff33;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+">
+    <div>
+        <div class="shop-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 15px; margin-bottom: 20px;">
+            <h3 style="margin: 0; font-size: 20px; color: #00d2ff;">💎 DIAMOND PLAN PACKAGE</h3>
+            <div class="price-badge" style="font-weight: 900; color: #34d399; font-size: 24px; text-shadow: 0 0 10px rgba(52, 211, 153, 0.2);">49 ₹</div>
+        </div>
+
+        <div class="loot-title" style="color: #ffaa00; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; font-weight: bold;">🎁 Package Includes:</div>
+        <div class="loot-list-items" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 25px;">
+            <div class="loot-item"><span>⚡</span> Diamond Protection 4 Helmet</div>
+            <div class="loot-item"><span>⚡</span> Diamond Protection 4 Chestplate</div>
+            <div class="loot-item"><span>⚡</span> Diamond Protection 4 Leggings</div>
+            <div class="loot-item"><span>⚡</span> Diamond Protection 4 Boots</div>
+            <div class="loot-item"><span>⚡</span> All Half-Maxed Tools</div>
+            <div class="loot-item"><span>⚡</span> 1000 Claim Blocks</div>
+            <div class="loot-item"><span>⚡</span> Normal Mace</div>
+            <div class="loot-item"><span>⚡</span> 2 Shulker Boxes</div>
+            <div class="loot-item"><span>⚡</span> 2 Stacks of Steak</div>
+            <div class="loot-item"><span>⚡</span> 2 Zombie Spawners</div>
+            <div class="loot-item"><span>⚡</span> 1 Skeleton Spawner</div>
+            <div class="loot-item"><span>⚡</span> Diamond Rank Status</div>
+            <div class="loot-item"><span>⚡</span> 5 Netherite Ingots</div>
+            <div class="loot-item"><span>⚡</span> 32 Diamonds</div>
+            <div class="loot-item"><span>⚡</span> 25,000 In-Game Money</div>
+        </div>
+    </div>
+
+    <button class="purchase-action-btn" style="
+        background-color: #22c55e !important;
+        color: #ffffff !important;
+        border: none !important;
+        padding: 12px 24px !important;
+        border-radius: 6px !important;
+        font-weight: bold !important;
+        cursor: pointer !important;
+        font-size: 15px !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        margin-top: auto !important;
+        margin-right: auto !important;
+        box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4) !important;
+        width: auto !important;
+    " onclick="window.open('https://discord.gg/Qmj8cBGXFA', '_blank')">
+        🛒 Purchase Plan
+    </button>
+</div>
